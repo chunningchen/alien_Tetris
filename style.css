@@ -1,0 +1,196 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #1a2744 0%, #0a0e17 55%);
+  color: #e8eef8;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom));
+  gap: 10px;
+}
+
+.stage-wrap {
+  position: relative;
+  border-radius: 12px;
+  padding: 4px;
+  background: linear-gradient(145deg, #2a3f66, #152238);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#game {
+  display: block;
+  width: min(92vw, 360px);
+  height: auto;
+  aspect-ratio: 1 / 2;
+  background: #070b12;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 4px;
+  border-radius: 8px;
+  z-index: 2;
+  background: rgba(5, 8, 14, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.overlay-sub {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+.overlay-leaderboard {
+  width: 100%;
+  max-width: 220px;
+  margin: 4px 0 0;
+}
+
+.overlay-lb-head {
+  margin: 0 0 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+}
+
+.overlay-lb-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.overlay-lb-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.overlay-lb-list li:last-child {
+  border-bottom: none;
+}
+
+.overlay-lb-list .lb-rank {
+  opacity: 0.45;
+  font-weight: 600;
+  font-size: 0.8rem;
+  min-width: 1.25em;
+}
+
+.overlay-lb-list .lb-empty {
+  opacity: 0.35;
+  font-weight: 500;
+}
+
+.overlay-lb-list .lb-this-run {
+  color: #5eead4;
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #5eead4, #2dd4bf);
+  color: #042f2e;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(45, 212, 191, 0.35);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/** Centered on playfield; only buttons capture touches (canvas gets swipes/taps elsewhere). */
+.touch-move-layer {
+  position: absolute;
+  inset: 4px;
+  border-radius: 8px;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .touch-move-layer {
+    display: flex;
+  }
+}
+
+.touch-move-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 5vw, 28px);
+  pointer-events: auto;
+}
+
+.touch-move-btn {
+  min-width: clamp(52px, 16vw, 72px);
+  padding: 14px 18px;
+  font-size: clamp(1.1rem, 4.2vw, 1.45rem);
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(8, 12, 22, 0.42);
+  color: rgba(232, 238, 248, 0.92);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.touch-move-btn:active {
+  background: rgba(45, 212, 191, 0.35);
+  border-color: rgba(94, 234, 212, 0.45);
+  color: #f0fffc;
+}
